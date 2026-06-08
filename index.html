@@ -1830,7 +1830,7 @@ function renderAmbassadors() {
   wrap.innerHTML = ambassadorsForDay(di).map(div => {
     const cards = div.teams.map(t => {
       const full = !!t.full;
-      const nameLine = dropin ? `With ${t.amb} <span class="amb-time">${t.time}</span>` : `With ${t.amb}`;
+      const nameLine = dropin ? `<span class="amb-time">${t.time}</span> with ${t.amb}` : `With ${t.amb}`;
       return `<button class="amb-card${full ? ' full' : ''}" data-div="${div.code}" data-divname="${div.name}"
           data-team="${t.team}" data-amb="${t.amb}" data-champ="${t.champ}" data-seasons="${t.seasons}" data-time="${t.time}"
           ${full ? '' : 'onclick="selectAmb(this)"'}>
