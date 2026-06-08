@@ -15,8 +15,9 @@
 :root {
   /* Page / surface */
   --page-bg: #F8F8F8;            /* background/primary, Neutrals/100 */
-  --dot-color: rgba(17, 17, 17, 0.06); /* dot-matrix texture — tweak opacity here */
-  --dot-gap: 3px;                /* spacing between dots */
+  --dot-color: rgba(17, 17, 17, 0.08); /* dot-matrix texture — tweak opacity here */
+  --dot-gap: 20px;               /* spacing between dots */
+  --dot-radius: 1px;             /* dot size */
   --surface-default: #ffffff;
   --surface-sunken: #eae8e8;     /* surface/sunken */
 
@@ -88,7 +89,7 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font);
   background-color: var(--page-bg);
-  background-image: radial-gradient(var(--dot-color) 0.5px, transparent 0.5px);
+  background-image: radial-gradient(var(--dot-color) var(--dot-radius), transparent var(--dot-radius));
   background-size: var(--dot-gap) var(--dot-gap);
   color: var(--text-primary);
   min-height: 100vh;
