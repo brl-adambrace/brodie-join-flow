@@ -15,6 +15,8 @@
 :root {
   /* Page / surface */
   --page-bg: #F8F8F8;            /* background/primary, Neutrals/100 */
+  --dot-color: rgba(17, 17, 17, 0.06); /* dot-matrix texture — tweak opacity here */
+  --dot-gap: 3px;                /* spacing between dots */
   --surface-default: #ffffff;
   --surface-sunken: #eae8e8;     /* surface/sunken */
 
@@ -85,7 +87,9 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font);
-  background: var(--page-bg);
+  background-color: var(--page-bg);
+  background-image: radial-gradient(var(--dot-color) 0.5px, transparent 0.5px);
+  background-size: var(--dot-gap) var(--dot-gap);
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -213,7 +217,7 @@ button { font-family: var(--font); }
 /* ─────────────────────────────────────────────
    LANDING
    ───────────────────────────────────────────── */
-.landing { background: var(--page-bg); }
+.landing { background: transparent; } /* let the body's dot-matrix texture show through */
 .landing-inner { max-width: var(--landing-width); margin: 0 auto; padding: 0 24px; }
 
 .landing-nav {
