@@ -808,6 +808,7 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
 .amb-info { min-width: 0; flex: 1; }
 .amb-team { font-size: 11px; color: var(--text-tertiary); font-family: var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .amb-name { font-size: 15px; font-weight: 600; }
+.amb-time { font-weight: 700; color: var(--text-primary); }
 .amb-stat { font-size: 12px; color: var(--text-tertiary); }
 .amb-full-tag { margin-left: auto; }
 
@@ -1653,6 +1654,7 @@ function setMode(mode) {
   set('when-collapsed-val', season ? 'Choose your day & ambassador' : 'Choose your game');
   set('when-pick-label', season ? 'Choose a skill level & ambassador' : 'Pick a game & ambassador');
   renderLocations();
+  renderAmbassadors();
 }
 
 /* ─── Ways to Play ─── */
@@ -1727,11 +1729,10 @@ function renderLocations() {
 }
 function selectGender(btn) { pickOne(btn); flowState.gender = btn.textContent.trim(); resetLeague(); }
 function resetLeague() {
-  flowState.location = null; flowState.loc = null; flowState.dayShort = null; flowState.day = null;
-  flowState.team = null; flowState.division = null; flowState.divCode = null;
+  flowState.location = null; flowState.loc = null;
+  flowState.team = null; flowState.ambName = null; flowState.division = null; flowState.divCode = null;
   renderLocations();
-  document.querySelectorAll('#day-group .day-chip').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('#ambassador-list .amb-card').forEach(c => c.classList.remove('selected'));
+  defaultFirstDay();   // always keep the first day selected; renders that day's ambassadors
   openWhere(); updateLeagueContinue();
 }
 function openWhere() {
@@ -1760,44 +1761,83 @@ const DAYS = [
 const DAY_FULL = { Mon:'Monday', Tue:'Tuesday', Wed:'Wednesday', Thur:'Thursday', Fri:'Friday', Sat:'Saturday', Sun:'Sunday' };
 function renderDays() {
   const wrap = document.getElementById('day-group'); if (!wrap) return;
-  wrap.innerHTML = DAYS.map(d => `<div class="day-chip" onclick="selectDay(this,'${d.d}','${d.t}')"><div class="d-day">${d.d}</div><div class="d-time">${d.t}</div></div>`).join('');
+  wrap.innerHTML = DAYS.map((d, i) => `<div class="day-chip${i === 0 ? ' active' : ''}" onclick="selectDay(this,'${d.d}','${d.t}')"><div class="d-day">${d.d}</div><div class="d-time">${d.t}</div></div>`).join('');
+  defaultFirstDay();
+}
+function defaultFirstDay() {
+  const first = DAYS[0];
+  flowState.dayShort = first.d; flowState.day = DAY_FULL[first.d]; flowState.time = first.t;
+  flowState.team = null; flowState.ambName = null;
+  document.querySelectorAll('#day-group .day-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+  renderAmbassadors();
 }
 function selectDay(chip, short, time) {
   Array.from(chip.parentElement.children).forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
   flowState.dayShort = short; flowState.day = DAY_FULL[short]; flowState.time = time;
+  flowState.team = null; flowState.ambName = null;   // line-up changes per day — clear the stale pick
+  renderAmbassadors();
   updateLeagueContinue();
 }
 
-const DIVS = [
-  { code:'D5', name:'Rookie', teams:[
-    { team:'Last Letter Elite', amb:'Ryan Hall',  champ:'10x', seasons:'6+' },
-    { team:'Court Vision',      amb:'Marcus Reed', champ:'4x',  seasons:'5+' } ] },
-  { code:'D4', name:'Rec', teams:[
-    { team:'Reddys',        amb:'Kachi Alexander', champ:'3x', seasons:'4+', full:true },
-    { team:'The Travelers', amb:'Sam Cole',        champ:'2x', seasons:'3+' } ] },
-  { code:'D3', name:'Intermediate', teams:[
-    { team:'Concord Crows', amb:'Devon Price', champ:'5x', seasons:'7+' },
-    { team:'Night Owls',    amb:'Jalen Vance', champ:'2x', seasons:'4+' } ] },
-  { code:'D2', name:'Competitive', teams:[
-    { team:'Rim Reapers',  amb:'Andre Wills',   champ:'6x', seasons:'8+' },
-    { team:'Splash Bros',  amb:'Tyrell Means',  champ:'3x', seasons:'5+', full:true } ] },
-  { code:'D1', name:'Elite', teams:[
-    { team:'Paulstars',       amb:'Chris Paulino', champ:'9x', seasons:'10+' },
-    { team:'Whoyouwid Elite', amb:'Omar Bryant',   champ:'7x', seasons:'9+' } ] },
+/* Ambassador teams come from per-division pools and rotate by day, so each day
+   shows a different line-up. Drop-in games each carry their own tip-off time. */
+const DIV_POOL = [
+  { code:'D5', name:'Rookie', pool:[
+    { team:'Last Letter Elite', amb:'Ryan Hall',     champ:'10x', seasons:'6+' },
+    { team:'Court Vision',      amb:'Marcus Reed',    champ:'4x',  seasons:'5+' },
+    { team:'The Newcomers',     amb:'Liam Patel',     champ:'2x',  seasons:'3+' },
+    { team:'Rookie Run',        amb:'Tyrese Okafor',  champ:'1x',  seasons:'2+' } ] },
+  { code:'D4', name:'Rec', pool:[
+    { team:'Reddys',            amb:'Kachi Alexander',champ:'3x',  seasons:'4+' },
+    { team:'The Travelers',     amb:'Sam Cole',       champ:'2x',  seasons:'3+' },
+    { team:'Weekend Warriors',  amb:'Dovid Klein',    champ:'1x',  seasons:'5+' },
+    { team:'Rec Kings',         amb:'Andre Boateng',  champ:'4x',  seasons:'6+' } ] },
+  { code:'D3', name:'Intermediate', pool:[
+    { team:'Concord Crows',     amb:'Devon Price',    champ:'5x',  seasons:'7+' },
+    { team:'Night Owls',        amb:'Jalen Vance',    champ:'2x',  seasons:'4+' },
+    { team:'Midtown Ballers',   amb:'Chris Yoon',     champ:'3x',  seasons:'5+' },
+    { team:'The Hand',          amb:'Marcus Webb',    champ:'2x',  seasons:'6+' } ] },
+  { code:'D2', name:'Competitive', pool:[
+    { team:'Rim Reapers',       amb:'Andre Wills',    champ:'6x',  seasons:'8+' },
+    { team:'Splash Bros',       amb:'Tyrell Means',   champ:'3x',  seasons:'5+' },
+    { team:'Iron Five',         amb:'Deshawn Carter', champ:'5x',  seasons:'7+' },
+    { team:'Cutthroat',         amb:'Marco Bianchi',  champ:'4x',  seasons:'6+' } ] },
+  { code:'D1', name:'Elite', pool:[
+    { team:'Paulstars',         amb:'Chris Paulino',  champ:'9x',  seasons:'10+' },
+    { team:'Whoyouwid Elite',   amb:'Omar Bryant',    champ:'7x',  seasons:'9+' },
+    { team:'Apex',              amb:'Julian Frost',   champ:'8x',  seasons:'9+' },
+    { team:'The Standard',      amb:'Nate Cole',      champ:'6x',  seasons:'8+' } ] },
 ];
+const GAME_TIMES = ['6:30PM','7:00PM','7:30PM','8:00PM','8:30PM','9:00PM'];
+function ambassadorsForDay(di) {
+  if (di < 0) di = 0;
+  return DIV_POOL.map((d, divIdx) => {
+    const n = d.pool.length;
+    const teams = [0, 1].map(slot => {
+      const t = d.pool[(di + divIdx + slot) % n];
+      const time = GAME_TIMES[(di + divIdx * 2 + slot) % GAME_TIMES.length];
+      const full = ((di + divIdx + slot) % 7) === 3;   // a few full per day, rotating
+      return { team: t.team, amb: t.amb, champ: t.champ, seasons: t.seasons, time, full };
+    });
+    return { code: d.code, name: d.name, teams };
+  });
+}
 function renderAmbassadors() {
   const wrap = document.getElementById('ambassador-list'); if (!wrap) return;
-  wrap.innerHTML = DIVS.map(div => {
+  const di = DAYS.findIndex(d => d.d === flowState.dayShort);
+  const dropin = flowState.mode === 'dropin';
+  wrap.innerHTML = ambassadorsForDay(di).map(div => {
     const cards = div.teams.map(t => {
       const full = !!t.full;
+      const nameLine = dropin ? `With ${t.amb} <span class="amb-time">${t.time}</span>` : `With ${t.amb}`;
       return `<button class="amb-card${full ? ' full' : ''}" data-div="${div.code}" data-divname="${div.name}"
-          data-team="${t.team}" data-amb="${t.amb}" data-champ="${t.champ}" data-seasons="${t.seasons}"
+          data-team="${t.team}" data-amb="${t.amb}" data-champ="${t.champ}" data-seasons="${t.seasons}" data-time="${t.time}"
           ${full ? '' : 'onclick="selectAmb(this)"'}>
           <div class="amb-ava">${initials(t.amb)}</div>
           <div class="amb-info">
             <div class="amb-team">${t.team}</div>
-            <div class="amb-name">With ${t.amb}</div>
+            <div class="amb-name">${nameLine}</div>
             <div class="amb-stat">${t.champ} BRODIE® Champion</div>
           </div>
           ${full ? '<span class="badge badge-full amb-full-tag">Full</span>' : ''}
@@ -1816,6 +1856,7 @@ function selectAmb(el) {
   flowState.ambName = el.dataset.amb;
   flowState.ambChamp = el.dataset.champ;
   flowState.ambSeasons = el.dataset.seasons;
+  if (flowState.mode === 'dropin' && el.dataset.time) flowState.time = el.dataset.time;   // drop-in tip-off time
   updateLeagueContinue();
 }
 function updateLeagueContinue() {
