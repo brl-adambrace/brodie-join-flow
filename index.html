@@ -853,6 +853,9 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
 .ca-box .otp-row { margin-bottom: 4px; }
 .ca-helper { font-size: 13px; color: var(--text-tertiary); margin: 12px 0 16px; line-height: 1.45; }
 .ca-welcome { margin-top: 12px; align-items: flex-start; }
+.banner-ok { background: #D1FAE5; color: var(--text-primary); }
+.banner-ok .banner-icon { background: var(--ok-text); }
+#ca-done-email:disabled { color: var(--text-tertiary); -webkit-text-fill-color: var(--text-tertiary); opacity: 1; }
 
 /* Join a Roster (code) */
 .roster-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; max-width: var(--landing-width); margin: 0 auto; padding: 0 24px; }
@@ -1420,7 +1423,7 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
           </div>
           <div id="ca-done" style="display:none;">
             <div class="field"><label class="field-label">Enter Email</label><input type="email" id="ca-done-email" disabled></div>
-            <div class="banner banner-info ca-welcome"><div class="banner-icon">i</div> <span id="ca-welcome-text">Welcome back, complete payment to confirm your registration.</span></div>
+            <div class="banner banner-info ca-welcome" id="ca-welcome-box"><div class="banner-icon" id="ca-welcome-icon">i</div> <span id="ca-welcome-text">Welcome back, complete payment to confirm your registration.</span></div>
           </div>
         </div>
 
@@ -2056,9 +2059,17 @@ function renderCheckoutAuth() {
   }
   if (stage === 'done') {
     const de = document.getElementById('ca-done-email'); if (de) de.value = checkoutEmail;
-    set('ca-welcome-text', checkoutAccountKnown
-      ? `Welcome back ${USER_FIRST}, complete payment to confirm your registration.`
-      : `You're all set, ${USER_FIRST} — complete payment to confirm your registration.`);
+    const box = document.getElementById('ca-welcome-box');
+    const icon = document.getElementById('ca-welcome-icon');
+    if (checkoutAccountKnown) {
+      if (box) box.className = 'banner banner-info ca-welcome';
+      if (icon) icon.textContent = 'i';
+      set('ca-welcome-text', `Welcome back ${USER_FIRST}, complete payment to confirm your registration.`);
+    } else {
+      if (box) box.className = 'banner banner-ok ca-welcome';
+      if (icon) icon.textContent = '✓';
+      set('ca-welcome-text', 'Account created. You can now use this email to access the Brodie App. Complete payment to confirm your registration.');
+    }
   }
   updateCheckoutPayState();
 }
