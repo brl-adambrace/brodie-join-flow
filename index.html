@@ -95,7 +95,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  padding-top: 44px; /* dev toolbar height */
+  padding-top: 0;
 }
 
 img { display: block; max-width: 100%; }
@@ -807,7 +807,14 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
 .amb-card.selected { border-color: var(--text-primary); box-shadow: 0 0 0 1px var(--text-primary); }
 .amb-card.full { opacity: .45; cursor: not-allowed; }
 .amb-card.full:hover { border-color: var(--border-default); }
-.amb-ava { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(135deg, #2b2b2b, #4a4a4a); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+.amb-ava { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; position: relative; overflow: hidden; background: linear-gradient(135deg, #2b2b2b, #4a4a4a); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; letter-spacing: .02em; }
+.amb-ava-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.dropin-empty { text-align: center; padding: 40px 16px 20px; }
+.de-icon { font-size: 22px; color: var(--text-tertiary); }
+.de-title { font-size: 20px; font-weight: 700; margin: 16px auto 18px; max-width: 520px; line-height: 1.3; }
+.de-next-label { font-size: 14px; color: var(--text-tertiary); }
+.de-next { font-size: 18px; font-weight: 600; margin-top: 4px; }
+.de-go { background: none; border: none; margin-top: 14px; font-size: 15px; font-weight: 600; text-decoration: underline; cursor: pointer; color: var(--text-primary); font-family: var(--font); }
 .amb-info { min-width: 0; flex: 1; }
 .amb-team { font-size: 11px; color: var(--text-tertiary); font-family: var(--font-mono); letter-spacing: .06em; text-transform: uppercase; }
 .amb-name { font-size: 15px; font-weight: 600; }
@@ -882,7 +889,8 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
 .amb-confirm { text-align: center; }
 .ac-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-tertiary); }
 .ac-name { font-size: 24px; font-weight: 700; margin-top: 4px; }
-.ac-ava { width: 88px; height: 88px; border-radius: 50%; margin: 16px auto; background: linear-gradient(135deg, #2b2b2b, #4a4a4a); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; }
+.ac-ava { width: 88px; height: 88px; border-radius: 50%; margin: 16px auto; position: relative; overflow: hidden; background: linear-gradient(135deg, #2b2b2b, #4a4a4a); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; }
+.ac-ava-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ac-stats { display: flex; justify-content: center; gap: 44px; }
 .ac-stat-num { font-size: 22px; font-weight: 700; }
 .ac-stat-lbl { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
@@ -919,32 +927,6 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
   .cl-headline { font-size: 25px; }
 }
 </style>
-
-
-<!-- ═══════════════════════════════════════════
-     DEV TOOLBAR (prototype only)
-════════════════════════════════════════════ -->
-<div class="toolbar">
-  <span class="toolbar-label">Join Flow:</span>
-  <button id="tb-landing" onclick="show('landing')">Landing</button>
-  <button id="tb-ways" onclick="show('ways')">Ways to Play</button>
-  <span class="toolbar-sep"></span>
-  <button onclick="setMode('season'); seedDemo(); show('league')">League · Season</button>
-  <button onclick="setMode('dropin'); seedDemo(); show('league')">League · Drop-In</button>
-  <button id="tb-uniform" onclick="seedDemo(); show('uniform')">Uniform</button>
-  <span class="toolbar-sep"></span>
-  <button onclick="show('roster-code')">Join Roster (code)</button>
-  <button onclick="seedRoster(); show('roster-uniform')">Roster · Uniform</button>
-  <button onclick="seedRoster(); setRosterDeadline('closing'); show('roster-uniform')">Roster: closing</button>
-  <button onclick="seedRoster(); setRosterDeadline('passed'); show('roster-uniform')">Roster: passed</button>
-  <span class="toolbar-sep"></span>
-  <button onclick="signedIn=!signedIn; this.textContent = signedIn ? '● Signed in' : '○ Signed out'">○ Signed out</button>
-  <span class="toolbar-sep"></span>
-  <button onclick="setMode('season'); seedDemo(); populateCheckout(); show('checkout')">Checkout · Season</button>
-  <button onclick="setMode('dropin'); seedDemo(); populateCheckout(); show('checkout')">Checkout · Drop-In</button>
-  <button onclick="setMode('season'); seedDemo(); populateConfirm(); show('confirm')">Confirm · Season</button>
-  <button onclick="setMode('dropin'); seedDemo(); populateConfirmDropin(); show('confirm-dropin')">Confirm · Drop-In</button>
-</div>
 
 
 <!-- ═══════════════════════════════════════════
@@ -1646,7 +1628,7 @@ function setMode(mode) {
   set('when-collapsed-val', season ? 'Choose your day & ambassador' : 'Choose your game');
   set('when-pick-label', season ? 'Choose a skill level & ambassador' : 'Pick a game & ambassador');
   renderLocations();
-  renderAmbassadors();
+  renderDays();
 }
 
 /* ─── Ways to Play ─── */
@@ -1746,31 +1728,90 @@ function selectLocation(name, cardEl) {
 }
 
 /* ─── League · When (days + ambassador teams) ─── */
-const DAYS = [
-  { d:'Mon', t:'9PM–12AM' }, { d:'Tue', t:'9PM–12AM' }, { d:'Wed', t:'7PM–11PM' }, { d:'Thur', t:'9PM–12AM' },
-  { d:'Fri', t:'9PM–12AM' }, { d:'Sat', t:'8PM–12AM' }, { d:'Sun', t:'6PM–11PM' },
+const WD_SHORT = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+const WD_FULL  = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MO_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function ord(n) { const s = ['th','st','nd','rd'], v = n % 100; return s[(v - 20) % 10] || s[v] || s[0]; }
+
+// Season = recurring week-nights. Drop-in = specific dated games (some nights dark).
+const SEASON_DAYS = [
+  { label:'Mon', full:'Monday',    time:'9PM–12AM' },
+  { label:'Tue', full:'Tuesday',   time:'9PM–12AM' },
+  { label:'Wed', full:'Wednesday', time:'7PM–11PM' },
+  { label:'Thur',full:'Thursday',  time:'9PM–12AM' },
+  { label:'Fri', full:'Friday',    time:'9PM–12AM' },
+  { label:'Sat', full:'Saturday',  time:'8PM–12AM' },
+  { label:'Sun', full:'Sunday',    time:'6PM–11PM' },
 ];
-const DAY_FULL = { Mon:'Monday', Tue:'Tuesday', Wed:'Wednesday', Thur:'Thursday', Fri:'Friday', Sat:'Saturday', Sun:'Sunday' };
+// Drop-in tip-off times by weekday (0=Sun); [] = no games that night.
+const DROPIN_SCHEDULE = {
+  0: ['6:30PM','7:30PM','8:30PM'],
+  1: ['6:30PM','7:30PM','8:30PM'],
+  2: [],
+  3: ['7:30PM','8:30PM'],
+  4: ['6:30PM','7:30PM','8:30PM'],
+  5: ['6:30PM','7:30PM','8:30PM'],
+  6: ['6:00PM','7:00PM','8:00PM','9:00PM'],
+};
+let _days = [];
+let _dayIdx = 0;
+function buildDays() {
+  if (flowState.mode === 'dropin') {
+    const t = new Date(); t.setHours(0, 0, 0, 0);
+    return Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(t); d.setDate(t.getDate() + i);
+      const dow = d.getDay();
+      const dateStr = `${MO_SHORT[d.getMonth()]} ${d.getDate()}${ord(d.getDate())}`;
+      return {
+        label: i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : `${WD_SHORT[dow]} ${dateStr}`,
+        full: `${WD_FULL[dow]} ${dateStr}`,
+        time: '6PM - 11PM', dow, date: d, isToday: i === 0,
+      };
+    });
+  }
+  return SEASON_DAYS.map(d => ({ label: d.label, full: d.full, time: d.time }));
+}
+function parseTime(date, t) {
+  const d = new Date(date);
+  const m = String(t).match(/(\d+)(?::(\d+))?\s*(AM|PM)/i);
+  if (m) { let h = (+m[1]) % 12; if (/pm/i.test(m[3])) h += 12; d.setHours(h, m[2] ? +m[2] : 0, 0, 0); }
+  return d;
+}
+function dayGames(day) {
+  if (!day) return { ok: false };
+  const times = (DROPIN_SCHEDULE[day.dow] || []).slice();
+  if (!times.length) return { ok: false };
+  if (day.isToday && Date.now() >= parseTime(day.date, times[0]).getTime() - 4 * 3600 * 1000) return { ok: false }; // 4h booking cutoff
+  return { ok: true, times };
+}
+function nextAvailable() {
+  for (const day of _days) { const g = dayGames(day); if (g.ok) return { day, time: g.times[0] }; }
+  return null;
+}
 function renderDays() {
   const wrap = document.getElementById('day-group'); if (!wrap) return;
-  wrap.innerHTML = DAYS.map((d, i) => `<div class="day-chip${i === 0 ? ' active' : ''}" onclick="selectDay(this,'${d.d}','${d.t}')"><div class="d-day">${d.d}</div><div class="d-time">${d.t}</div></div>`).join('');
-  defaultFirstDay();
+  _days = buildDays(); _dayIdx = 0;
+  wrap.innerHTML = _days.map((dd, i) => `<div class="day-chip${i === 0 ? ' active' : ''}" onclick="selectDay(${i})"><div class="d-day">${dd.label}</div><div class="d-time">${dd.time}</div></div>`).join('');
+  applyDay();
 }
-function defaultFirstDay() {
-  const first = DAYS[0];
-  flowState.dayShort = first.d; flowState.day = DAY_FULL[first.d]; flowState.time = first.t;
-  flowState.team = null; flowState.ambName = null;
-  document.querySelectorAll('#day-group .day-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
+function defaultFirstDay() { renderDays(); }
+function applyDay() {
+  const day = _days[_dayIdx]; if (!day) return;
+  flowState.dayShort = day.label; flowState.day = day.full; flowState.time = day.time;
+  flowState.team = null; flowState.ambName = null;   // clear the pick when the day changes
   renderAmbassadors();
 }
-function selectDay(chip, short, time) {
-  Array.from(chip.parentElement.children).forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-  flowState.dayShort = short; flowState.day = DAY_FULL[short]; flowState.time = time;
-  flowState.team = null; flowState.ambName = null;   // line-up changes per day — clear the stale pick
-  renderAmbassadors();
+function selectDay(i) {
+  _dayIdx = i;
+  document.querySelectorAll('#day-group .day-chip').forEach((c, idx) => c.classList.toggle('active', idx === i));
+  applyDay();
   updateLeagueContinue();
 }
+function goToGame(i) { selectDay(i); }
+// Ambassador avatars — seeded headshots; fall back to initials if the image fails to load.
+function avFor(name) { let h = 0; const s = String(name); for (let k = 0; k < s.length; k++) h = (h * 31 + s.charCodeAt(k)) >>> 0; return h % 90; }
+function avatarUrl(name) { return `https://randomuser.me/api/portraits/men/${avFor(name)}.jpg`; }
+function avatarImgHtml(name) { return `<img class="ac-ava-img" src="${avatarUrl(name)}" alt="" onerror="this.remove()">${initials(name)}`; }
 
 /* Ambassador teams come from per-division pools and rotate by day, so each day
    shows a different line-up. Drop-in games each carry their own tip-off time. */
@@ -1808,25 +1849,43 @@ function ambassadorsForDay(di) {
     const n = d.pool.length;
     const teams = [0, 1].map(slot => {
       const t = d.pool[(di + divIdx + slot) % n];
-      const time = GAME_TIMES[(di + divIdx * 2 + slot) % GAME_TIMES.length];
       const full = ((di + divIdx + slot) % 7) === 3;   // a few full per day, rotating
-      return { team: t.team, amb: t.amb, champ: t.champ, seasons: t.seasons, time, full };
+      return { team: t.team, amb: t.amb, champ: t.champ, seasons: t.seasons, full };
     });
     return { code: d.code, name: d.name, teams };
   });
 }
+function dropinEmptyHtml(day) {
+  const na = nextAvailable();
+  const idx = na ? _days.indexOf(na.day) : -1;
+  return `<div class="dropin-empty">
+      <div class="de-icon">⚠</div>
+      <div class="de-title">There are currently no available games for ${day.isToday ? 'today, ' : ''}${day.full}</div>
+      ${na ? `<div class="de-next-label">Next available Drop-In Game</div>
+      <div class="de-next">${na.day.full} ${na.time.toLowerCase()}</div>
+      <button class="de-go" onclick="goToGame(${idx})">Go To Game</button>` : '<div class="de-next-label">Check back soon — more games drop weekly.</div>'}
+    </div>`;
+}
 function renderAmbassadors() {
   const wrap = document.getElementById('ambassador-list'); if (!wrap) return;
-  const di = DAYS.findIndex(d => d.d === flowState.dayShort);
+  const day = _days[_dayIdx];
   const dropin = flowState.mode === 'dropin';
-  wrap.innerHTML = ambassadorsForDay(di).map(div => {
+  let times = GAME_TIMES;
+  if (dropin) {
+    const g = dayGames(day);
+    if (!g.ok) { wrap.innerHTML = dropinEmptyHtml(day); return; }
+    times = g.times;
+  }
+  let k = 0;
+  wrap.innerHTML = ambassadorsForDay(_dayIdx).map(div => {
     const cards = div.teams.map(t => {
+      const time = times[k % times.length]; k++;
       const full = !!t.full;
-      const nameLine = dropin ? `<span class="amb-time">${t.time}</span> with ${t.amb}` : `With ${t.amb}`;
+      const nameLine = dropin ? `<span class="amb-time">${time}</span> with ${t.amb}` : `With ${t.amb}`;
       return `<button class="amb-card${full ? ' full' : ''}" data-div="${div.code}" data-divname="${div.name}"
-          data-team="${t.team}" data-amb="${t.amb}" data-champ="${t.champ}" data-seasons="${t.seasons}" data-time="${t.time}"
+          data-team="${t.team}" data-amb="${t.amb}" data-champ="${t.champ}" data-seasons="${t.seasons}" data-time="${time}"
           ${full ? '' : 'onclick="selectAmb(this)"'}>
-          <div class="amb-ava">${initials(t.amb)}</div>
+          <div class="amb-ava"><img class="amb-ava-img" src="${avatarUrl(t.amb)}" alt="" loading="lazy" onerror="this.remove()">${initials(t.amb)}</div>
           <div class="amb-info">
             <div class="amb-team">${t.team}</div>
             <div class="amb-name">${nameLine}</div>
@@ -2011,7 +2070,7 @@ function handleConfirmPay(btn) {
 function populateConfirm() {
   const s = summaryValues();
   set('cf-headline', `${USER_FIRST}, Welcome to Brodie Summer`);
-  set('cf-amb-name', s.amb); set('cf-amb-ava', initials(s.amb));
+  set('cf-amb-name', s.amb); document.getElementById('cf-amb-ava').innerHTML = avatarImgHtml(s.amb);
   set('cf-amb-champ', flowState.ambChamp || '10x'); set('cf-amb-seasons', flowState.ambSeasons || '6+');
   set('cf-loc-name', s.loc.n); set('cf-loc-addr', s.loc.a);
   set('cf-div', `${s.gender} ${s.divCode}`); set('cf-div-sub', s.day);
@@ -2020,7 +2079,7 @@ function populateConfirm() {
 function populateConfirmDropin() {
   const s = summaryValues();
   set('cd-headline', `${USER_FIRST}, Get Ready To Drop In With ${firstName(s.amb)}.`);
-  set('cd-amb-name', s.amb); set('cd-amb-ava', initials(s.amb));
+  set('cd-amb-name', s.amb); document.getElementById('cd-amb-ava').innerHTML = avatarImgHtml(s.amb);
   set('cd-amb-champ', flowState.ambChamp || '10x'); set('cd-amb-seasons', flowState.ambSeasons || '6+');
   set('cd-loc-name', s.loc.n); set('cd-loc-addr', s.loc.a);
   set('cd-game', `${s.day} · ${s.time}`); set('cd-game-sub', `${s.gender} ${s.divCode}`);
