@@ -462,13 +462,14 @@ button { font-family: var(--font); }
 .chip.active { background: var(--charcoal); color: #fff; border-color: var(--charcoal); }
 
 /* day chips (with time) */
-.day-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.day-group { display: flex; gap: 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+.day-group::-webkit-scrollbar { display: none; }
 .day-chip {
   border: 1px solid var(--border-default);
   background: var(--surface-default);
   border-radius: 12px;
   padding: 10px 12px;
-  cursor: pointer; text-align: center; min-width: 64px;
+  cursor: pointer; text-align: center; min-width: 64px; flex: 0 0 auto;
   transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 .day-chip .d-day { font-size: 13px; font-weight: 600; }
@@ -741,7 +742,7 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
 
   /* League */
   .loc-list.scroll { max-height: none; overflow: visible; }
-  .day-chip { min-width: 0; flex: 1 0 auto; }
+  .day-chip { flex: 0 0 auto; }
 
   /* Team */
   .field-row { grid-template-columns: 1fr; }
@@ -1809,8 +1810,9 @@ function selectDay(i) {
 }
 function goToGame(i) { selectDay(i); }
 // Ambassador avatars — seeded headshots; fall back to initials if the image fails to load.
-function avFor(name) { let h = 0; const s = String(name); for (let k = 0; k < s.length; k++) h = (h * 31 + s.charCodeAt(k)) >>> 0; return h % 90; }
-function avatarUrl(name) { return `https://randomuser.me/api/portraits/men/${avFor(name)}.jpg`; }
+const AVATARS = ['photo-1610903866883-c280999dcc0e','photo-1565884280295-98eb83e41c65','photo-1761358531981-4064d22bb03a','photo-1775196610640-5e70ef38f846','photo-1739567994955-6441a2fbb62d','photo-1561426492-15d1251583c4','photo-1577744168855-0391d2ed2b3a','photo-1659523585860-c349407e512d','photo-1663576749125-56c161b4a9dc','photo-1763893296686-208b12fed9b8'];
+function avFor(name) { let h = 0; const s = String(name); for (let k = 0; k < s.length; k++) h = (h * 31 + s.charCodeAt(k)) >>> 0; return h; }
+function avatarUrl(name) { return `https://images.unsplash.com/${AVATARS[avFor(name) % AVATARS.length]}?w=200&h=200&fit=crop&crop=faces&q=72`; }
 function avatarImgHtml(name) { return `<img class="ac-ava-img" src="${avatarUrl(name)}" alt="" onerror="this.remove()">${initials(name)}`; }
 
 /* Ambassador teams come from per-division pools and rotate by day, so each day
