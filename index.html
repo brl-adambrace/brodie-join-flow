@@ -927,6 +927,67 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
   .cl-cards { grid-template-columns: 1fr; }
   .cl-headline { font-size: 25px; }
 }
+
+/* ── Confirmation v2 (shared dark + light) ── */
+.cf2 { max-width: 540px; margin: 0 auto; padding: 36px 24px 80px; text-align: center; }
+.cf2 .confirm-logo { display: flex; justify-content: center; color: #fff; }
+.cf2 .confirm-logo svg { width: 40px; height: auto; }
+.cf2-seal { width: 210px; height: 210px; margin: 24px auto 14px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border: 1px solid rgba(214,176,90,.26); background: radial-gradient(circle, rgba(214,176,90,.15), rgba(214,176,90,.02) 70%); color: rgba(220,190,120,.6); }
+.cf2-seal-b svg { width: 60px; height: auto; }
+.cf2-seal-cap { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; }
+.cf2-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: #d6b05a; }
+.cf2-headline { font-size: 30px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px; color: var(--accent-yellow); margin: 12px auto; max-width: 380px; }
+.cf2-sub { font-size: 15px; line-height: 1.5; color: #b7b1a8; max-width: 470px; margin: 0 auto 30px; }
+.cf2-detailbar { display: grid; grid-template-columns: 1.5fr 1fr 1fr auto; gap: 18px; align-items: center; text-align: left; background: #17140f; border: 1px solid #2b261d; border-radius: 14px; padding: 18px 20px; margin-bottom: 30px; }
+.cf2-detail .s-k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: #8a8276; }
+.cf2-dv { font-size: 14px; font-weight: 600; color: #fff; margin-top: 4px; }
+.cf2-ds { font-size: 12px; color: #a39c90; margin-top: 2px; line-height: 1.35; }
+.cf2-paylink { background: none; border: 1px solid #3a3428; border-radius: 999px; color: #fff; font-family: var(--font); font-size: 12px; padding: 8px 14px; cursor: pointer; white-space: nowrap; }
+.cf2-paylink:hover { background: rgba(255,255,255,.06); }
+.cf2-next-label { text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #8a8276; margin: 0 0 12px; scroll-margin-top: 80px; }
+.cf2-app { display: flex; align-items: center; gap: 16px; background: #17140f; border: 1px solid #2b261d; border-radius: 16px; padding: 18px 20px; text-align: left; margin-bottom: 16px; }
+.cf2-app-ic { width: 52px; height: 52px; border-radius: 12px; background: #000; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: var(--accent-yellow); }
+.cf2-app-ic svg { width: 30px; height: auto; }
+.cf2-app-txt { flex: 1; min-width: 0; }
+.cf2-app-title { font-size: 16px; font-weight: 700; color: #fff; }
+.cf2-app-desc { font-size: 13px; color: #a39c90; margin-top: 4px; line-height: 1.45; }
+.cf2-qr { width: 84px; height: 84px; border-radius: 10px; background: #fff; flex-shrink: 0; padding: 5px; }
+.cf2-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: left; margin-bottom: 30px; }
+.cf2-person { background: #17140f; border: 1px solid #2b261d; border-radius: 16px; padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.cf2-person-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; color: #d6b05a; }
+.cf2-person-name { font-size: 22px; font-weight: 700; color: #fff; margin-top: 4px; }
+.cf2-person-ava { width: 84px; height: 84px; border-radius: 50%; margin: 16px auto 18px; position: relative; overflow: hidden; background: linear-gradient(135deg,#2b2b2b,#4a4a4a); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; border: 1px solid rgba(214,176,90,.3); }
+.cf2-person-stats { display: flex; justify-content: center; gap: 36px; margin-top: auto; }
+.cf2-stat-num { font-size: 20px; font-weight: 700; color: #fff; }
+.cf2-stat-lbl { font-size: 11px; color: #a39c90; margin-top: 2px; }
+.cf2-mini-stack { display: flex; flex-direction: column; gap: 16px; }
+.cf2-mini { background: #17140f; border: 1px solid #2b261d; border-radius: 16px; padding: 18px; flex: 1; }
+.cf2-mini-ic { width: 30px; height: 30px; border-radius: 8px; background: #000; display: flex; align-items: center; justify-content: center; color: var(--accent-yellow); font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.cf2-mini-title { font-size: 15px; font-weight: 700; color: #fff; }
+.cf2-mini-desc { font-size: 12px; color: #a39c90; margin-top: 4px; line-height: 1.45; }
+.cf2-correct { text-align: left; margin-bottom: 28px; }
+.cf2-pay { text-align: left; }
+.cf2-pay-row { display: flex; justify-content: space-between; padding: 12px 2px; font-size: 14px; color: #cfc8bd; border-bottom: 1px solid #221e17; }
+.cf2-pay-row.cf2-pay-total { font-weight: 700; color: #fff; }
+.cf2-pay-row.cf2-pay-sub { color: #a39c90; border-bottom: none; }
+.cf2-pay-row.cf2-pay-sub span:first-child { margin-left: 45%; }
+.cf2-pay-strike { text-decoration: line-through; color: #8a8276; margin-right: 8px; }
+/* light (drop-in) overrides */
+#screen-confirm-dropin .cf2-detailbar, #screen-confirm-dropin .cf2-app, #screen-confirm-dropin .cf2-person, #screen-confirm-dropin .cf2-mini { background: var(--surface-sunken); border: none; }
+#screen-confirm-dropin .cf2-headline { color: var(--text-primary); }
+#screen-confirm-dropin .cf2-eyebrow, #screen-confirm-dropin .cf2-person-eyebrow, #screen-confirm-dropin .cf2-next-label, #screen-confirm-dropin .cf2-detail .s-k { color: var(--text-tertiary); }
+#screen-confirm-dropin .cf2-sub { color: var(--text-secondary); }
+#screen-confirm-dropin .cf2-dv, #screen-confirm-dropin .cf2-app-title, #screen-confirm-dropin .cf2-person-name, #screen-confirm-dropin .cf2-mini-title, #screen-confirm-dropin .cf2-stat-num, #screen-confirm-dropin .cf2-pay-row.cf2-pay-total { color: var(--text-primary); }
+#screen-confirm-dropin .cf2-ds, #screen-confirm-dropin .cf2-app-desc, #screen-confirm-dropin .cf2-mini-desc, #screen-confirm-dropin .cf2-stat-lbl, #screen-confirm-dropin .cf2-pay-row { color: var(--text-secondary); }
+#screen-confirm-dropin .cf2-pay-row { border-bottom-color: var(--border-default); }
+#screen-confirm-dropin .cf2-pay-strike { color: var(--text-tertiary); }
+#screen-confirm-dropin .cf2-paylink { color: var(--text-primary); border-color: var(--border-strong); }
+@media (max-width: 700px) {
+  .cf2-detailbar { grid-template-columns: 1fr; gap: 14px; }
+  .cf2-cols { grid-template-columns: 1fr; }
+  .cf2-app { flex-wrap: wrap; }
+  .cf2-pay-row.cf2-pay-sub span:first-child { margin-left: 0; }
+}
 </style>
 
 
@@ -1472,39 +1533,56 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
      SCREEN — Confirmation · Full Season (dark · Figma 478:3745)
 ════════════════════════════════════════════ -->
 <div class="screen screen-dark" id="screen-confirm">
-  <div class="confirm-wrap">
+  <div class="cf2">
     <span class="confirm-logo bmark-slot"></span>
-    <div class="confirm-emblem">
-      <span class="emblem-b bmark-slot"></span>
-      <span class="emblem-cap">BRODIE SUMMER LEAGUE</span>
+    <div class="cf2-seal"><span class="cf2-seal-b bmark-slot"></span><span class="cf2-seal-cap">BRODIE SUMMER LEAGUE</span></div>
+    <div class="cf2-eyebrow">You're Registered</div>
+    <h1 class="cf2-headline" id="cf-headline">Welcome to Brodie Summer</h1>
+    <p class="cf2-sub" id="cf-sub">Your season is locked, your ambassador is expecting you, and the full details are waiting in your inbox. Show up. The rest is handled.</p>
+
+    <div class="cf2-detailbar">
+      <div class="cf2-detail"><div class="s-k">Location</div><div class="cf2-dv" id="cf-loc-name">Burlington</div><div class="cf2-ds" id="cf-loc-addr">952 Century Dr, Burlington, ON L7L 5P2</div></div>
+      <div class="cf2-detail"><div class="s-k">Team</div><div class="cf2-dv" id="cf-team">Last Letter Elite</div><div class="cf2-ds" id="cf-team-sub">Ambassador Team</div></div>
+      <div class="cf2-detail"><div class="s-k">Division</div><div class="cf2-dv" id="cf-div">Men's D5</div><div class="cf2-ds" id="cf-div-sub">Sunday</div></div>
+      <button class="cf2-paylink" onclick="document.getElementById('cf-pay').scrollIntoView({behavior:'smooth',block:'center'})">Payment Details</button>
     </div>
 
-    <div class="confirm-eyebrow">You're Registered</div>
-    <h1 class="confirm-headline" id="cf-headline">Adam, Welcome to Brodie Summer</h1>
-    <p class="confirm-sub">Your season is locked, your ambassador is expecting you, and the full details are waiting in your inbox. Show up. The rest is handled.</p>
+    <div class="cf2-next-label">What's Next</div>
+    <div class="cf2-app">
+      <span class="cf2-app-ic"><span class="bmark-slot"></span></span>
+      <div class="cf2-app-txt"><div class="cf2-app-title">Download the BRODIE® App</div><div class="cf2-app-desc">Complete your personalized profile, follow Brodie Athletes, chat with your team and get access to exclusive perks.</div></div>
+      <img class="cf2-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=https://join.brodierec.com/app" alt="App download QR code" loading="lazy">
+    </div>
 
-    <div class="confirm-cards">
-      <div class="dark-card amb-confirm">
-        <div class="ac-eyebrow">⟡ Your Ambassador ⟡</div>
-        <div class="ac-name" id="cf-amb-name">Ryan Hall</div>
-        <div class="ac-ava" id="cf-amb-ava">RH</div>
-        <div class="ac-stats">
-          <div><div class="ac-stat-num" id="cf-amb-champ">10x</div><div class="ac-stat-lbl">BRODIE® Champion</div></div>
-          <div><div class="ac-stat-num" id="cf-amb-seasons">6+</div><div class="ac-stat-lbl">Seasons Played</div></div>
+    <div class="cf2-cols">
+      <div class="cf2-person">
+        <div class="cf2-person-eyebrow" id="cf-person-eyebrow">⟡ Your Ambassador ⟡</div>
+        <div class="cf2-person-name" id="cf-amb-name">Ryan Hall</div>
+        <div class="cf2-person-ava" id="cf-amb-ava"></div>
+        <div class="cf2-person-stats" id="cf-person-stats"></div>
+      </div>
+      <div class="cf2-mini-stack">
+        <div class="cf2-mini">
+          <span class="cf2-mini-ic">$</span>
+          <div class="cf2-mini-title">Invite your friends &amp; get paid</div>
+          <div class="cf2-mini-desc">Every referral earns you cash. Get $25 when they sign up &amp; $5 every season when they come back.</div>
+        </div>
+        <div class="cf2-mini">
+          <span class="cf2-mini-ic cf2-ig">⌾</span>
+          <div class="cf2-mini-title">Follow Burlington on Instagram</div>
+          <div class="cf2-mini-desc">Stay up to date on news, league updates and fresh weekly highlights @brodieburlington</div>
         </div>
       </div>
-      <div class="dark-card dark-summary">
-        <div class="summary-item"><div class="s-k">Location</div><div class="s-v" id="cf-loc-name">Burlington</div><div class="s-sub" id="cf-loc-addr">952 Century Dr, Burlington, ON L7L 5P2</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Division</div><div class="s-v" id="cf-div">Men's D5</div><div class="s-sub" id="cf-div-sub">Wednesday</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Team</div><div class="s-v" id="cf-team">Last Letter Elite</div><div class="s-sub">Ambassador Team</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Uniform</div><div class="s-v" id="cf-uniform">XL</div></div>
-      </div>
     </div>
 
-    <div class="confirm-eyebrow" style="text-align:left;margin-top:34px;">What's Next</div>
-    <div class="next-grid">
-      <div class="next-card"><span class="next-ic bmark-slot"></span><div><div class="next-title">Download the BRODIE® App</div><div class="next-desc">Your schedule, profile, stats, team chats and more live in the app.</div></div></div>
-      <div class="next-card"><div><div class="next-title">Check your inbox</div><div class="next-desc">We've sent all the details for your upcoming season to you.</div></div></div>
+    <div class="cf2-next-label" id="cf-pay">Payment Details</div>
+    <div class="cf2-pay">
+      <div class="cf2-pay-row"><span>One time payment</span><span>$379.97</span></div>
+      <div class="cf2-pay-row"><span>Taxes</span><span>$49.40</span></div>
+      <div class="cf2-pay-row"><span>Fees</span><span>$15.57</span></div>
+      <div class="cf2-pay-row cf2-pay-total"><span>Total</span><span>CA $444.94</span></div>
+      <div class="cf2-pay-row cf2-pay-sub"><span>Paid</span><span>$50.00</span></div>
+      <div class="cf2-pay-row cf2-pay-sub"><span>Upcoming</span><span>$394.94</span></div>
     </div>
   </div>
 </div>
@@ -1522,40 +1600,59 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
     </div>
   </nav>
 
-  <div class="cl-wrap">
-    <div class="cl-eyebrow">Drop In Confirmed</div>
-    <h1 class="cl-headline" id="cd-headline">Adam, Get Ready To Drop In With Ryan.</h1>
-    <p class="cl-sub">Your run is confirmed, your ambassador is expecting you, and the full details are waiting in your inbox. Show up. The rest is handled.</p>
+  <div class="cf2">
+    <div class="cf2-eyebrow">Drop In Confirmed</div>
+    <h1 class="cf2-headline" id="cd-headline">Adam, Get Ready To Drop In With Ryan.</h1>
+    <p class="cf2-sub" id="cd-sub">Your run is confirmed, your ambassador is expecting you, and the full details are waiting in your inbox. Show up. The rest is handled.</p>
 
-    <div class="cl-cards">
-      <div class="light-card amb-confirm">
-        <div class="ac-eyebrow">⟡ Your Ambassador ⟡</div>
-        <div class="ac-name" id="cd-amb-name">Ryan Hall</div>
-        <div class="ac-ava" id="cd-amb-ava">RH</div>
-        <div class="ac-stats">
-          <div><div class="ac-stat-num" id="cd-amb-champ">10x</div><div class="ac-stat-lbl">BRODIE® Champion</div></div>
-          <div><div class="ac-stat-num" id="cd-amb-seasons">6+</div><div class="ac-stat-lbl">Seasons Played</div></div>
-        </div>
+    <div class="cf2-detailbar">
+      <div class="cf2-detail"><div class="s-k">Your Run</div><div class="cf2-dv" id="cd-loc-name">Burlington</div><div class="cf2-ds" id="cd-run">Sunday May 30th 7:00PM</div><div class="cf2-ds" id="cd-loc-addr">952 Century Dr, Burlington, ON L7L 5P2</div></div>
+      <div class="cf2-detail"><div class="s-k">Team</div><div class="cf2-dv" id="cd-team">Last Letter Elite</div><div class="cf2-ds">Ambassador Team</div></div>
+      <div class="cf2-detail"><div class="s-k">Division</div><div class="cf2-dv" id="cd-div">Men's D5</div><div class="cf2-ds" id="cd-div-sub">Sunday</div></div>
+      <button class="cf2-paylink" onclick="document.getElementById('cd-pay').scrollIntoView({behavior:'smooth',block:'center'})">Payment Details</button>
+    </div>
+
+    <div class="cf2-next-label">What's Next</div>
+    <div class="cf2-app">
+      <span class="cf2-app-ic"><span class="bmark-slot"></span></span>
+      <div class="cf2-app-txt"><div class="cf2-app-title">Download the BRODIE® App</div><div class="cf2-app-desc">Complete your personalized profile, follow Brodie Athletes, chat with your team and get access to exclusive perks.</div></div>
+      <img class="cf2-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&margin=0&data=https://join.brodierec.com/app" alt="App download QR code" loading="lazy">
+    </div>
+
+    <div class="cf2-cols">
+      <div class="cf2-person">
+        <div class="cf2-person-eyebrow">⟡ Your Ambassador ⟡</div>
+        <div class="cf2-person-name" id="cd-amb-name">Ryan Hall</div>
+        <div class="cf2-person-ava" id="cd-amb-ava"></div>
+        <div class="cf2-person-stats" id="cd-person-stats"></div>
       </div>
-      <div class="light-card sunken">
-        <div class="summary-item"><div class="s-k">Location</div><div class="s-v" id="cd-loc-name">Burlington</div><div class="s-sub" id="cd-loc-addr">952 Century Dr, Burlington, ON L7L 5P2</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Game</div><div class="s-v" id="cd-game">Sunday Jun 14 · 7:00PM</div><div class="s-sub" id="cd-game-sub">Men's D5</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Team</div><div class="s-v" id="cd-team">Last Letter Elite</div><div class="s-sub">Ambassador Team</div></div>
-        <div class="summary-item" style="margin-top:18px;"><div class="s-k">Uniform</div><div class="s-v" id="cd-uniform">XL</div></div>
+      <div class="cf2-mini-stack">
+        <div class="cf2-mini">
+          <span class="cf2-mini-ic cf2-ig">⌾</span>
+          <div class="cf2-mini-title">Follow Burlington on Instagram</div>
+          <div class="cf2-mini-desc">Stay up to date on news, league updates and fresh weekly highlights @brodieburlington</div>
+        </div>
+        <div class="cf2-mini">
+          <span class="cf2-mini-ic">✉</span>
+          <div class="cf2-mini-title">Check your inbox</div>
+          <div class="cf2-mini-desc">Find all the details for your upcoming run and check-in information.</div>
+        </div>
       </div>
     </div>
 
-    <div class="come-correct">
-      <div class="cc-eyebrow">Come Correct</div>
+    <div class="cf2-next-label">Come Correct</div>
+    <div class="cf2-correct">
       <div class="cc-row"><span class="cc-check">✓</span> Athletic clothes &amp; clean non-marking shoes</div>
       <div class="cc-row"><span class="cc-check">✓</span> Water bottle</div>
       <div class="cc-row"><span class="cc-check">✓</span> Photo ID (for waiver)</div>
     </div>
 
-    <div class="cc-eyebrow" style="margin-top:30px;">What's Next</div>
-    <div class="next-grid" style="margin-top:12px;">
-      <div class="next-card" style="background:var(--surface-sunken); border:none;"><span class="next-ic" style="background:#000;"><span class="bmark-slot" style="color:var(--accent-yellow);"></span></span><div><div class="next-title">Download the BRODIE® App</div><div class="next-desc">Your schedule, profile, stats, team chats and more live in the app.</div></div></div>
-      <div class="next-card" style="background:var(--surface-sunken); border:none;"><div><div class="next-title">Check your inbox</div><div class="next-desc">Find all the details for your upcoming run and check-in details.</div></div></div>
+    <div class="cf2-next-label" id="cd-pay">Payment Details</div>
+    <div class="cf2-pay">
+      <div class="cf2-pay-row"><span>Drop-In Run</span><span><span class="cf2-pay-strike">$45.00</span>$0.00</span></div>
+      <div class="cf2-pay-row"><span>Taxes</span><span>$0.00</span></div>
+      <div class="cf2-pay-row"><span>Fees</span><span>$0.00</span></div>
+      <div class="cf2-pay-row cf2-pay-total"><span>Total</span><span>$0.00</span></div>
     </div>
   </div>
 </div>
@@ -1977,7 +2074,7 @@ function seedRoster() {
   flowState.loc = LOCATIONS.find(l => l.n === 'Burlington') || null;
   flowState.dayShort = 'Wed'; flowState.day = 'Wednesday'; flowState.time = '7PM–11PM';
   flowState.gender = "Men's"; flowState.division = 'D5 Rookie'; flowState.divCode = 'D5';
-  flowState.team = 'Last Letter Elite'; flowState.ambName = 'Ryan Hall'; flowState.ambChamp = '10x'; flowState.ambSeasons = '6+';
+  flowState.team = 'Last Letter Elite'; flowState.ambName = 'Ryan Hall'; flowState.ambChamp = '10x'; flowState.ambSeasons = '6+'; flowState.captain = 'Kachi Alexander';
   set('roster-headline', "You're suiting up for " + flowState.team);
   set('roster-subline', `${flowState.location} · ${flowState.day} · Mens ${flowState.divCode}`);
   renderCaptainJerseys();
@@ -2069,23 +2166,36 @@ function handleConfirmPay(btn) {
     else { populateConfirm(); show('confirm'); }
   }, 900);
 }
+function statsHtml(champ, seasons) {
+  return `<div><div class="cf2-stat-num">${champ || '10x'}</div><div class="cf2-stat-lbl">BRODIE® Champion</div></div><div><div class="cf2-stat-num">${seasons || '6+'}</div><div class="cf2-stat-lbl">Seasons Played</div></div>`;
+}
 function populateConfirm() {
   const s = summaryValues();
+  const roster = (flowState.mode || 'season') === 'roster';
   set('cf-headline', `${USER_FIRST}, Welcome to Brodie Summer`);
-  set('cf-amb-name', s.amb); document.getElementById('cf-amb-ava').innerHTML = avatarImgHtml(s.amb);
-  set('cf-amb-champ', flowState.ambChamp || '10x'); set('cf-amb-seasons', flowState.ambSeasons || '6+');
+  set('cf-sub', roster
+    ? "You're on the roster. Your captain's got you, and everything you need for the season is headed to your inbox."
+    : 'Your season is locked, your ambassador is expecting you, and the full details are waiting in your inbox. Show up. The rest is handled.');
   set('cf-loc-name', s.loc.n); set('cf-loc-addr', s.loc.a);
+  set('cf-team', s.team); set('cf-team-sub', roster ? "Captain's Team" : 'Ambassador Team');
   set('cf-div', `${s.gender} ${s.divCode}`); set('cf-div-sub', s.day);
-  set('cf-team', s.team); set('cf-uniform', s.size);
+  const person = roster ? (flowState.captain || 'Kachi Alexander') : s.amb;
+  set('cf-person-eyebrow', roster ? '⟡ Your Captain ⟡' : '⟡ Your Ambassador ⟡');
+  set('cf-amb-name', person);
+  document.getElementById('cf-amb-ava').innerHTML = avatarImgHtml(person);
+  document.getElementById('cf-person-stats').innerHTML = roster
+    ? `<div class="cf2-team-stat"><div class="cf2-stat-lbl">Team</div><div class="cf2-stat-num">${s.team}</div></div>`
+    : statsHtml(flowState.ambChamp, flowState.ambSeasons);
 }
 function populateConfirmDropin() {
   const s = summaryValues();
   set('cd-headline', `${USER_FIRST}, Get Ready To Drop In With ${firstName(s.amb)}.`);
-  set('cd-amb-name', s.amb); document.getElementById('cd-amb-ava').innerHTML = avatarImgHtml(s.amb);
-  set('cd-amb-champ', flowState.ambChamp || '10x'); set('cd-amb-seasons', flowState.ambSeasons || '6+');
-  set('cd-loc-name', s.loc.n); set('cd-loc-addr', s.loc.a);
-  set('cd-game', `${s.day} · ${s.time}`); set('cd-game-sub', `${s.gender} ${s.divCode}`);
-  set('cd-team', s.team); set('cd-uniform', s.size);
+  set('cd-loc-name', s.loc.n); set('cd-run', `${s.day} · ${s.time}`); set('cd-loc-addr', s.loc.a);
+  set('cd-team', s.team);
+  set('cd-div', `${s.gender} ${s.divCode}`); set('cd-div-sub', s.day);
+  set('cd-amb-name', s.amb);
+  document.getElementById('cd-amb-ava').innerHTML = avatarImgHtml(s.amb);
+  document.getElementById('cd-person-stats').innerHTML = statsHtml(flowState.ambChamp, flowState.ambSeasons);
 }
 
 /* ─── Auth embedded in the Checkout step ─── */
