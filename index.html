@@ -1047,7 +1047,7 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
     <section style="padding: 16px 0 8px;">
       <div class="countdown-band">
         <div class="cd-avatar"><span class="bmark-slot"></span></div>
-        <div class="cd-title">Brodie Summer Begins June 14th</div>
+        <div class="cd-title">Brodie Summer Begins June 17th</div>
         <div class="countdown">
           <div class="cd-unit"><div class="cd-num" data-cd="d">00</div><div class="cd-lbl">Days</div></div>
           <div class="cd-unit"><div class="cd-num" data-cd="h">00</div><div class="cd-lbl">Hours</div></div>
@@ -1099,7 +1099,7 @@ input[type=range].slider::-moz-range-thumb { width: 22px; height: 22px; border-r
       <span class="seal season"><span class="bmark-slot"></span></span>
       <div class="wtp-body">
         <div class="wtp-name">Register For Next Season</div>
-        <div class="wtp-desc">Brodie Summer Tips Off June 14th</div>
+        <div class="wtp-desc">Brodie Summer Tips Off June 17th</div>
       </div>
       <div class="wtp-cd">
         <div class="cd-unit"><div class="cd-num" data-cd="d">00</div><div class="cd-lbl">Days</div></div>
@@ -1686,7 +1686,19 @@ function fillLogos() {
 
 /* ─── Season countdown (landing band + Ways-to-Play card) ─── */
 function initCountdown() {
-  const target = new Date('2026-06-14T00:00:00');
+  // Always count down to the next upcoming Wednesday so the timer never goes stale.
+  const target = (function () {
+    const n = new Date();
+    const t = new Date(n.getFullYear(), n.getMonth(), n.getDate());
+    let add = (3 - t.getDay() + 7) % 7; if (add === 0) add = 7;   // 3 = Wed; roll a week if today is Wed
+    t.setDate(t.getDate() + add);
+    const M = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const dd = t.getDate(), ord = (dd % 10 === 1 && dd !== 11) ? 'st' : (dd % 10 === 2 && dd !== 12) ? 'nd' : (dd % 10 === 3 && dd !== 13) ? 'rd' : 'th';
+    const label = M[t.getMonth()] + ' ' + dd + ord;
+    document.querySelectorAll('.cd-title').forEach(function (e) { e.textContent = 'Brodie Summer Begins ' + label; });
+    document.querySelectorAll('.wtp-desc').forEach(function (e) { e.textContent = 'Brodie Summer Tips Off ' + label; });
+    return t;
+  })();
   function tick() {
     let diff = Math.max(0, Math.floor((target - new Date()) / 1000));
     const d = Math.floor(diff / 86400); diff -= d * 86400;
